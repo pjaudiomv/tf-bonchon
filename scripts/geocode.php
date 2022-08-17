@@ -27,8 +27,8 @@ function geocode($address) {
 
     if (count($map_details->results) > 0) {
         $geometry      = $map_details->results[0]->geometry->location;
-        $coords['long'] = $geometry->lat;
-        $coords['lat'] = $geometry->lng;
+        $coords['long'] = $geometry->lng;
+        $coords['lat'] = $geometry->lat;
     }
 
     return $coords;
