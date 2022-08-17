@@ -96,7 +96,7 @@ resource "oci_core_network_security_group_security_rule" "bonchon_ingress_ssh_ru
   direction                 = "INGRESS"
   protocol                  = "6"
   description               = "ssh-ingress"
-  source                    = "0.0.0.0/0" # local.myip
+  source                    = local.myip
   source_type               = "CIDR_BLOCK"
 
   tcp_options {
@@ -215,14 +215,9 @@ EOF
     content_type = "text/x-shellscript"
     content      = <<BOF
 #!/bin/bash
-ufw enable
-ufw default deny incoming
-ufw default allow outgoing
-ufw allow 22/tcp
-ufw allow 443/tcp
-ufw allow 80/tcp
-ufw allow 'Apache Full'
-#ufw delete allow 'Apache'
+ufw disable
+iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+iptables -I INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 
 # Do the yap and BMLT Things
 wget https://github.com/bmlt-enabled/bmlt-root-server/releases/download/2.16.4/bmlt-root-server.zip
