@@ -80,7 +80,7 @@ foreach ($data as $location) {
     $publish = modify_meeting($meeting_id, "published", "1");
     print_r($publish);
 
-    $phone_meeting_number = modify_meeting($meeting_id, "phone_meeting_number", urlencode($phone));
+    $phone_meeting_number = modify_meeting($meeting_id, "comments", urlencode($phone));
     print_r($phone_meeting_number);
 }
 
